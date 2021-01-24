@@ -15,9 +15,10 @@ function runService(workerData) {
 }
 
 router.get('/', function (req, res, next) {
-  const array = Array.from({ length: 10000000 }).map(() => 'hello world').map((x) => x + 'aaaa');
+  const firstArray = Array.from({ length: 2000000 }).map((x, i) => 'hello world' + i).concat(['my frienda']);
+  const secondArray = Array.from({ length: 2000000 }).map((x, i) => 'my friend' + i).concat('hello world1');
   console.log('start intensive task');
-  runService(array).then((result) => {
+  runService({ firstArray, secondArray }).then((result) => {
     res.json({ result })
   }).catch(err => console.error(err))
 });
